@@ -8,6 +8,7 @@ import Navbars from './component/layout/Navbars';
 import Home from './component/layout/Home';
 import CreateAccount from './component/auth/CreateAccount';
 import Login from './component/auth/Login';
+import ImageUpload from './component/Body/ImageUpload';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact  path='/' component={Home}/>
           <Route exact path='/login' component={Login}/>
           <Route exact path='/createAccount' component={CreateAccount}/>
+          <Route exact path='/imageuploader' component={ImageUpload}/>
         </Switch>
       </Router>
       
