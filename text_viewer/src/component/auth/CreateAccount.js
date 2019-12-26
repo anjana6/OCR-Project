@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
 import {Form,Button,Card} from 'react-bootstrap';
 import { register } from '../../action/authAction';
+import {setAlert} from '../../action/alertAction';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const CreateAccount = ({register,isAuthenticated}) => {
+
+const CreateAccount = ({register,setAlert,isAuthenticated}) => {
     const [formData,setFormData] = useState({name:'',email:'',password:'',password2:''});
 
     const {name,email,password,password2} = formData;
@@ -18,9 +20,11 @@ const CreateAccount = ({register,isAuthenticated}) => {
     const onSubmit = (e) =>{
         e.preventDefault();
         if(password !== password2 ){
-            console.log('inso')
+            console.log('inso');
+            setAlert("Your Password is Incorrect","denger");
         }else if (password.length<6) {
-            console.log('ron')
+            console.log('ron');
+            setAlert("Enter the more than 6 character","denger");
         } else {
             register({name,email,password});
         }
@@ -69,4 +73,4 @@ const mapStateToProp = (state) =>({
 })
 
 
-export default connect(mapStateToProp,{register})(CreateAccount);
+export default connect(mapStateToProp,{register,setAlert})(CreateAccount);

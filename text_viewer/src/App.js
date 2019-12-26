@@ -9,12 +9,14 @@ import Home from './component/layout/Home';
 import CreateAccount from './component/auth/CreateAccount';
 import Login from './component/auth/Login';
 import ImageUpload from './component/Body/ImageUpload';
+import Alert from './component/layout/Alert';
 
 
 const App = () => {
   return (
       <Router>
         <Navbars/>
+        <Alert/>
         <Switch>
           <Route exact  path='/' component={Home}/>
           <Route exact path='/login' component={Login}/>

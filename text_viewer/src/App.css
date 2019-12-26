@@ -18,3 +18,13 @@
  margin-left: 30%;
  margin-top: 5%;
 }
+
+.alert-denger{
+  background-color: red;
+  color: white;
+}
+
+.alert-success{
+  background-color: green;
+  color: white;
+}
