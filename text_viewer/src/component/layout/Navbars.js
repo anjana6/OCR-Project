@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Navbar,Nav } from 'react-bootstrap';
 import {Icon} from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
-const Navbars = () => {
+const Navbars = ({auth}) => {
+
+  const authLink = (
+    <Fragment>
+      <Nav.Link href="/"><Icon name='log out'/>Logout</Nav.Link>
+    </Fragment>
+  )
+
+  const gestLink = (
+    <Fragment>
+      <Nav.Link href="/login"><Icon name='user circle'/>Login</Nav.Link>
+      <Nav.Link href="/createAccount"><Icon name='signup'/>SingUp</Nav.Link>
+    </Fragment>
+  )
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
   <Navbar.Brand href="/">Image Text Viewer</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="ml-auto">
-      <Nav.Link href="/login"><Icon name='user circle'/>Login</Nav.Link>
-      <Nav.Link href="/createAccount"><Icon name='signup'/>SingUp</Nav.Link>
+  (<Fragment>{auth.authenticated ? authLink : gestLink}</Fragment> )
     </Nav>
   </Navbar.Collapse>
 </Navbar>
   );
 };
 
-export default Navbars;
+const mapStateToProp = (state) =>({
+  auth: state.auth
+})
+
+export default connect(mapStateToProp)(Navbars);

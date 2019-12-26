@@ -1,33 +1,61 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Form,Button,Card} from 'react-bootstrap';
+import { register } from '../../action/authAction';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const CreateAccount = () => {
+const CreateAccount = ({register,isAuthenticated}) => {
+    const [formData,setFormData] = useState({name:'',email:'',password:'',password2:''});
+
+    const {name,email,password,password2} = formData;
+
+    const onChange = (e) =>{
+        setFormData({...formData,[e.target.name] : e.target.value})
+
+    };
+    
+
+    const onSubmit = (e) =>{
+        e.preventDefault();
+        if(password !== password2 ){
+            console.log('inso')
+        }else if (password.length<6) {
+            console.log('ron')
+        } else {
+            register({name,email,password});
+        }
+
+    }
+
+    if(isAuthenticated){
+        return <Redirect to='/imageuploader'/>
+    }
+    
     return (
         <div className='accountcreate'>
             <Card style={{ width: '40rem' }}>
                 <Card.Body>
                     <Card.Title className='text-center'>Create Account</Card.Title>
-                    <Form>
+                    <Form onSubmit={onSubmit}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email"  />
+                            <Form.Control type="text" placeholder="Name" onChange={onChange} name='name'/>
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Control type="email" placeholder="Enter email" onChange={onChange} name='email'/>
+
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" onChange={onChange} name='password' />
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>ConformPassword</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="conformPassword" onChange={onChange} name='password2'/>
                         </Form.Group>
-                        <Button variant="secondary" size="lg" block>
-                            Submit
-                        </Button>
+                        <Button variant="secondary" size="lg" block onClick={onSubmit}>Submit</Button>
                     </Form>
                 </Card.Body>
             </Card>
@@ -36,5 +64,9 @@ const CreateAccount = () => {
         </div>
     )
 }
+const mapStateToProp = (state) =>({
+    isAuthenticated: state.auth.isAuthenticated
+})
 
-export default CreateAccount;
+
+export default connect(mapStateToProp,{register})(CreateAccount);
