@@ -1,7 +1,24 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Card,Form,Button} from 'react-bootstrap';
+import {sendImage} from '../../action/imageAction';
+import {connect} from 'react-redux';
 
-const ImageUpload = () => {
+const ImageUpload = ({sendImage,images}) => {
+    const [image,setImage] = useState({file:null});
+
+    const onChange = (e) =>{
+        setImage({...image,file:e.target.files[0]})
+    }
+
+    const {file} = image;
+
+    const onSubmit = (e) =>{
+        e.preventDefault();
+        // console.log({file})
+        sendImage({file});
+
+    }
+
     return (
         <div className='accountcreate'>
             <div>
@@ -13,16 +30,24 @@ const ImageUpload = () => {
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Choose file</Form.Label>
-                            <Form.Control type="file"  />
+                            <Form.Control type="file" onChange={onChange} />
                         </Form.Group>
-                        <Button variant="secondary" size="lg" block>
+                        <Button variant="secondary" size="lg" block onClick={onSubmit}>
                             Submit
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
+
+            <div>
+                {/* {image} */}
+            </div>
         </div>
     )
 }
 
-export default ImageUpload;
+const mapStateToPorp = (state) =>({
+    images: state.image
+});
+
+export default connect(mapStateToPorp,{sendImage})(ImageUpload);
