@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {login} from '../../action/authAction';
 
 
- const Login = ({login,isAuthenticated}) => {
+ const Login = ({login,isAuthanticated}) => {
      const [formData,setFormData] = useState({email:'',password:''})
 
     const onChange = (e) =>{
@@ -21,7 +21,7 @@ import {login} from '../../action/authAction';
 
     }
 
-    if(isAuthenticated){
+    if(isAuthanticated){
         return <Redirect to='/imageuploader'/>
     }
 
@@ -52,7 +52,7 @@ import {login} from '../../action/authAction';
     )
 }
 const mapStateToProps = (state) =>({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthanticated: state.auth.isAuthanticated
 });
 
 export default connect(mapStateToProps,{login})(Login);

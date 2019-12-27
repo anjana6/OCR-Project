@@ -15,8 +15,8 @@ const Home = () => {
         <Card className="text-center accountcreate" style={{ width: '40rem' }}>
         <Card.Body>
             <Card.Title className='text-center'>Image Text Viewer</Card.Title>
-            <Link><Button className='home-btn' variant="primary">Login</Button></Link>
-            <Link><Button className='home-btn' variant="primary">SingUp</Button></Link>
+            <Link to='/login'><Button className='home-btn' variant="primary">Login</Button></Link>
+            <Link to='/createAccount'><Button className='home-btn' variant="primary">SingUp</Button></Link>
         </Card.Body>
     </Card>
     )

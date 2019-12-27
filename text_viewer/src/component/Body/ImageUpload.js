@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, Fragment} from 'react';
 import {Card,Form,Button} from 'react-bootstrap';
 import {sendImage} from '../../action/imageAction';
 import {connect} from 'react-redux';
 
-const ImageUpload = ({sendImage,images}) => {
+const ImageUpload = ({sendImage,content:{text,loadingText}}) => {
     const [image,setImage] = useState({file:null});
 
     const onChange = (e) =>{
@@ -20,34 +20,43 @@ const ImageUpload = ({sendImage,images}) => {
     }
 
     return (
-        <div className='accountcreate'>
-            <div>
-                <h1>You can select your Image</h1>
-            </div>
-            <Card style={{ width: '40rem' }}>
+        <div className='upload-image'>
+            <Card style={{ width: '60rem' }}>
                 <Card.Body>
-                    <Card.Title className='text-center'>File Upload</Card.Title>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Choose file</Form.Label>
-                            <Form.Control type="file" onChange={onChange} />
-                        </Form.Group>
-                        <Button variant="secondary" size="lg" block onClick={onSubmit}>
-                            Submit
-                        </Button>
-                    </Form>
+                    <Card.Title className='text-center'><h1>You can select your Image</h1></Card.Title>
+                        <Card style={{ width: '50rem' }} className='ml-5'>
+                            <Card.Body>
+                                <Card.Title className='text-center'>File Upload</Card.Title>
+                                <Form>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Choose file</Form.Label>
+                                        <Form.Control type="file" onChange={onChange} />
+                                    </Form.Group>
+                                    <Button variant="secondary" size="lg" block onClick={onSubmit}>
+                                        Submit
+                                    </Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
                 </Card.Body>
             </Card>
-
-            <div>
-                {/* {image} */}
+            <div >
+                <Fragment>{loadingText &&  
+                    <Card className='show-text' style={{ width: '40rem' }}>
+                        <Card.Body>
+                            <Card.Title className='text-center'><h1>Image Content</h1></Card.Title>
+                            <Card.Text>{text}</Card.Text>
+                        </Card.Body>
+                    </Card>}
+                </Fragment>
+                
             </div>
         </div>
     )
 }
 
 const mapStateToPorp = (state) =>({
-    images: state.image
+    content: state.image
 });
 
 export default connect(mapStateToPorp,{sendImage})(ImageUpload);

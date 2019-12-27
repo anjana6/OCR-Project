@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS,REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL} from './Type';
+import {REGISTER_SUCCESS,REGISTER_FAIL,VERIFIED_SUCCESS,LOGIN_SUCCESS, LOGIN_FAIL} from './Type';
 import axios from 'axios';
 
 export const register = ({name,email,password}) =>async dispatch => {
@@ -13,7 +13,8 @@ const config = {
 const body = JSON.stringify({name,email,password});
 
 try{
-    const res = await axios.post('',body,config);
+    const res = await axios.post('http://localhost:8080/signUp',body,config);
+    console.log(res.data);
 
     dispatch({
         type: REGISTER_SUCCESS,
@@ -27,8 +28,22 @@ try{
 }
 }
 
+export const verifyEmail = () => async dispatch =>{
+    try {
+        const res = await axios.get('http://localhost:8080/verifyResponse');
+        console.log(res.data);
+
+        dispatch({
+            type:VERIFIED_SUCCESS,
+            payload:res.data
+        })
+    } catch (err) {
+        
+    }
+}
+
 export const login = ({email,password}) =>async dispatch =>{
-    console.log({email,password});
+    // console.log({email,password});
     const config = {
         headers:{
             'Content-Type' : 'application/json'
@@ -38,7 +53,8 @@ export const login = ({email,password}) =>async dispatch =>{
     const body = JSON.stringify({email,password});
 
     try {
-        const res = await axios.post('',body,config);
+        const res = await axios.post('http://localhost:8080/login',body,config);
+        // console.log(res.data)
 
         dispatch({
             type:LOGIN_SUCCESS,

@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
 import {Form,Button,Card} from 'react-bootstrap';
-import { register } from '../../action/authAction';
+import { register,verifyEmail } from '../../action/authAction';
 import {setAlert} from '../../action/alertAction';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 
-const CreateAccount = ({register,setAlert,isAuthenticated}) => {
+const CreateAccount = ({register,setAlert,verifyEmail,auth:{isRegistered}}) => {
     const [formData,setFormData] = useState({name:'',email:'',password:'',password2:''});
 
     const {name,email,password,password2} = formData;
@@ -30,10 +30,15 @@ const CreateAccount = ({register,setAlert,isAuthenticated}) => {
         }
 
     }
+    if(isRegistered === 'success'){
+        setAlert("You should verfiy using email","success");
+        verifyEmail()
 
-    if(isAuthenticated){
-        return <Redirect to='/imageuploader'/>
     }
+
+    // if(isVerify === 'Verified'){
+    //     return <Redirect to='/imageuploader'/>
+    // }
     
     return (
         <div className='accountcreate'>
@@ -69,8 +74,8 @@ const CreateAccount = ({register,setAlert,isAuthenticated}) => {
     )
 }
 const mapStateToProp = (state) =>({
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.auth
 })
 
 
-export default connect(mapStateToProp,{register,setAlert})(CreateAccount);
+export default connect(mapStateToProp,{register,setAlert,verifyEmail})(CreateAccount);

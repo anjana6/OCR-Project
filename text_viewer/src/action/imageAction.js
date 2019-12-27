@@ -5,7 +5,7 @@ export const sendImage = ({file}) => async dispath =>{
     console.log({file});
     const formData = new FormData();
 
-    formData.append(file);
+    formData.append('filePath',file);
 
     const config ={
         headers:{
@@ -14,7 +14,8 @@ export const sendImage = ({file}) => async dispath =>{
     }
 
     try {
-        const res = await axios.post('',formData,config);
+        const res = await axios.post('http://localhost:8080/read',formData,config);
+        console.log(res.data);
 
         dispath({
             type:SEND_IMAGE,

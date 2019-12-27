@@ -1,12 +1,17 @@
 import {SEND_IMAGE} from '../action/Type';
 
-export default (state={},action) => {
+const initailaState = {
+    text:'',
+    loadingText: false
+}
+
+export default (state=initailaState,action) => {
 
     const {type,payload} = action;
     switch (type) {
         case SEND_IMAGE:
             return {
-                ...state,payload
+                ...state,text:payload,loadingText:true
             }
     
         default:

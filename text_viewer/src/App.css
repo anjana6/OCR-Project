@@ -28,3 +28,12 @@
   background-color: green;
   color: white;
 }
+
+.upload-image{
+  margin: 10px 250px;
+}
+
+.show-text{
+  margin: 50px 150px;
+  border: 2px solid black;
+}
