@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
 import {Form,Button,Card} from 'react-bootstrap';
-import { register,verifyEmail } from '../../action/authAction';
+import { register } from '../../action/authAction';
 import {setAlert} from '../../action/alertAction';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 
-const CreateAccount = ({register,setAlert,verifyEmail,auth:{isRegistered}}) => {
+
+const CreateAccount = ({register,setAlert,auth:{isRegistered}}) => {
     const [formData,setFormData] = useState({name:'',email:'',password:'',password2:''});
 
     const {name,email,password,password2} = formData;
@@ -32,13 +32,7 @@ const CreateAccount = ({register,setAlert,verifyEmail,auth:{isRegistered}}) => {
     }
     if(isRegistered === 'success'){
         setAlert("You should verfiy using email","success");
-        verifyEmail()
-
     }
-
-    // if(isVerify === 'Verified'){
-    //     return <Redirect to='/imageuploader'/>
-    // }
     
     return (
         <div className='accountcreate'>
@@ -78,4 +72,4 @@ const mapStateToProp = (state) =>({
 })
 
 
-export default connect(mapStateToProp,{register,setAlert,verifyEmail})(CreateAccount);
+export default connect(mapStateToProp,{register,setAlert})(CreateAccount);

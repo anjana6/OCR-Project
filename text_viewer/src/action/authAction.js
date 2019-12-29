@@ -1,8 +1,8 @@
-import {REGISTER_SUCCESS,REGISTER_FAIL,VERIFIED_SUCCESS,LOGIN_SUCCESS, LOGIN_FAIL} from './Type';
+import {REGISTER_SUCCESS,REGISTER_FAIL,LOGIN_SUCCESS, LOGIN_FAIL} from './Type';
 import axios from 'axios';
 
 export const register = ({name,email,password}) =>async dispatch => {
-// console.log({name,email,password});
+console.log({name,email,password});
 
 const config = {
     headers:{
@@ -28,19 +28,24 @@ try{
 }
 }
 
-export const verifyEmail = () => async dispatch =>{
-    try {
-        const res = await axios.get('http://localhost:8080/verifyResponse');
-        console.log(res.data);
+export const sendVerifiedID = ({uuid}) =>async dispatch=>{
+    console.log({uuid});
+    const config = {
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }
 
-        dispatch({
-            type:VERIFIED_SUCCESS,
-            payload:res.data
-        })
+    const body = JSON.stringify({uuid});
+    try {
+        await axios.post('http://localhost:8080/verifyResponse',body,config);
     } catch (err) {
         
     }
+   
+
 }
+
 
 export const login = ({email,password}) =>async dispatch =>{
     // console.log({email,password});
