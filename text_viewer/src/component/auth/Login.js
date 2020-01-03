@@ -27,7 +27,7 @@ import {login} from '../../action/authAction';
 
     return (
         
-        <div className='accountcreate'>
+        <div className='card-form'>
             <Card style={{ width: '40rem' }}>
                 <Card.Body>
                     <Card.Title className='text-center'>Login</Card.Title>

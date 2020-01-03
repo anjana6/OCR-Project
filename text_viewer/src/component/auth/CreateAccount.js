@@ -35,7 +35,7 @@ const CreateAccount = ({register,setAlert,auth:{isRegistered}}) => {
     }
     
     return (
-        <div className='accountcreate'>
+        <div className='card-form'>
             <Card style={{ width: '40rem' }}>
                 <Card.Body>
                     <Card.Title className='text-center'>Create Account</Card.Title>

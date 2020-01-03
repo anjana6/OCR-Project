@@ -3,7 +3,7 @@ import { Navbar,Nav } from 'react-bootstrap';
 import {Icon} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-const Navbars = ({auth}) => {
+const Navbars = ({ isAuthanticated}) => {
 
   const authLink = (
     <Fragment>
@@ -17,13 +17,14 @@ const Navbars = ({auth}) => {
       <Nav.Link href="/createAccount"><Icon name='signup'/>SingUp</Nav.Link>
     </Fragment>
   )
+  // console.log({auth.authanticated});
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
   <Navbar.Brand href="/">Image Text Viewer</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="ml-auto">
-  (<Fragment>{auth.authenticated ? authLink : gestLink}</Fragment> )
+  (<Fragment>{ isAuthanticated ? authLink : gestLink}</Fragment> )
     </Nav>
   </Navbar.Collapse>
 </Navbar>
@@ -31,7 +32,7 @@ const Navbars = ({auth}) => {
 };
 
 const mapStateToProp = (state) =>({
-  auth: state.auth
+  isAuthanticated: state.auth.isAuthanticated
 })
 
 export default connect(mapStateToProp)(Navbars);
